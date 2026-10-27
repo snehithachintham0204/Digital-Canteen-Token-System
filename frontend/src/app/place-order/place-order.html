@@ -1,0 +1,197 @@
+
+<div class="order-page">
+  <header class="page-header">
+    <h1>Anurag University Canteen</h1>
+    <p>Digital Canteen Token System</p>
+  </header>
+
+  <section class="student-card">
+    <h2>Student Details</h2>
+    <p>Enter your details before placing your order.</p>
+
+    <div class="student-form">
+      <div class="form-group">
+        <label for="studentName">Full Name *</label>
+        <input
+          id="studentName"
+          name="studentName"
+          type="text"
+          [(ngModel)]="studentName"
+          placeholder="Enter your full name"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="branch">Branch *</label>
+        <select
+          id="branch"
+          name="branch"
+          [(ngModel)]="branch"
+          required
+        >
+          <option value="">Select your branch</option>
+          <option *ngFor="let item of branches" [value]="item">
+            {{ item }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="year">Year *</label>
+        <select
+          id="year"
+          name="year"
+          [(ngModel)]="year"
+          required
+        >
+          <option value="">Select your year</option>
+          <option *ngFor="let item of years" [value]="item">
+            {{ item }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="rollNumber">Roll Number *</label>
+        <input
+          id="rollNumber"
+          name="rollNumber"
+          type="text"
+          [(ngModel)]="rollNumber"
+          placeholder="Enter your roll number"
+          required
+        />
+      </div>
+    </div>
+  </section>
+
+  <div *ngIf="loading" class="message">
+    Loading menu...
+  </div>
+
+  <div *ngIf="errorMessage" class="error-message" role="alert">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="successMessage" class="success-message" role="status">
+    {{ successMessage }}
+  </div>
+
+  <section *ngIf="!loading && tokenNumber === null" class="menu-section">
+    <h2>Choose Your Food</h2>
+
+    <div class="category-tabs">
+      <button
+        *ngFor="let category of categories"
+        type="button"
+        [class.active]="selectedCategory === category"
+        (click)="selectCategory(category)"
+      >
+        {{ category }}
+      </button>
+    </div>
+
+    <h3 class="selected-category">{{ selectedCategory }}</h3>
+
+    <div class="food-grid">
+      <div
+        class="food-card"
+        *ngFor="let food of getFoodsByCategory(selectedCategory)"
+      >
+        <div class="food-info">
+          <h3>{{ food.name }}</h3>
+          <p>{{ food.category }}</p>
+          <strong>₹{{ food.price }}</strong>
+        </div>
+
+        <button
+          type="button"
+          class="add-button"
+          (click)="addToCart(food)"
+        >
+          Add to Cart
+        </button>
+      </div>
+    </div>
+
+    <p
+      *ngIf="getFoodsByCategory(selectedCategory).length === 0"
+      class="message"
+    >
+      No food items available in this category.
+    </p>
+  </section>
+
+  <section *ngIf="tokenNumber === null" class="cart-card">
+    <h2>Your Cart</h2>
+
+    <p *ngIf="cart.length === 0" class="empty-cart">
+      Your cart is empty. Add food items to continue.
+    </p>
+
+    <div class="cart-item" *ngFor="let item of cart">
+      <div class="cart-food">
+        <strong>{{ item.food.name }}</strong>
+        <span>₹{{ item.food.price }} each</span>
+      </div>
+
+      <div class="quantity-controls">
+        <button
+          type="button"
+          aria-label="Decrease quantity"
+          (click)="decreaseQuantity(item)"
+        >−</button>
+
+        <span>{{ item.quantity }}</span>
+
+        <button
+          type="button"
+          aria-label="Increase quantity"
+          (click)="increaseQuantity(item)"
+        >+</button>
+      </div>
+
+      <strong>₹{{ item.food.price * item.quantity }}</strong>
+
+      <button
+        type="button"
+        class="remove-button"
+        (click)="removeItem(item)"
+      >
+        Remove
+      </button>
+    </div>
+
+    <div class="cart-total">
+      <span>Total items: {{ totalItems }}</span>
+      <strong>Total: ₹{{ totalAmount }}</strong>
+    </div>
+
+    <button
+      type="button"
+      class="place-order-button"
+      [disabled]="placingOrder || loading || cart.length === 0"
+      (click)="placeOrder()"
+    >
+      {{ placingOrder ? 'Placing Order...' : 'Place Order' }}
+    </button>
+  </section>
+
+  <section *ngIf="tokenNumber !== null" class="token-card">
+    <h2>Order Placed Successfully!</h2>
+
+    <p>Your digital token number is</p>
+    <div class="token-number">{{ tokenNumber }}</div>
+
+    <p>Please show your token at the canteen counter.</p>
+
+    <button
+      type="button"
+      class="place-order-button"
+      (click)="startNewOrder()"
+    >
+      Start New Order
+    </button>
+  </section>
+</div>

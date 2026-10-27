@@ -1,0 +1,90 @@
+
+<section class="menu-page">
+
+  <!-- Page heading -->
+  <div class="menu-heading">
+    <span class="menu-label">ANURAG UNIVERSITY CANTEEN</span>
+    <h2>Our Food Menu</h2>
+    <p>Fresh flavours, tasty meals and student-friendly prices.</p>
+  </div>
+
+  <!-- Loading message -->
+  <p class="status" *ngIf="loading">
+    Loading food menu...
+  </p>
+
+  <!-- Error message -->
+  <div class="error" *ngIf="!loading && errorMessage">
+    <p>{{ errorMessage }}</p>
+    <button type="button" (click)="loadMenu()">Try Again</button>
+  </div>
+
+  <!-- Empty menu message -->
+  <div
+    class="empty-menu"
+    *ngIf="!loading && !errorMessage && menu.length === 0">
+    No food items are available right now.
+  </div>
+
+  <!-- Food categories -->
+  <div *ngIf="!loading && !errorMessage && menu.length > 0">
+
+    <section
+      class="category-section"
+      *ngFor="let category of categories">
+
+      <h2 class="category-title">{{ category }}</h2>
+
+      <div class="food-list">
+
+        <ng-container *ngFor="let food of getFoodsByCategory(category)">
+
+          <div class="food-card">
+
+            <!-- Dish image -->
+            <div class="food-image">
+             <img
+                    [src]="getFoodImage(food.name)"
+                    [alt]="food.name"
+                    (error)="onImageError($event)"
+                    loading="eager"
+            />
+            </div>
+
+            <!-- Dish details -->
+            <div class="food-details">
+              <h3>{{ food.name }}</h3>
+              <p>Freshly prepared for you</p>
+            </div>
+
+            <!-- Price -->
+            <div class="food-price">
+              ₹{{ food.price }}
+            </div>
+
+          </div>
+
+        </ng-container>
+
+        <p
+          class="empty-category"
+          *ngIf="getFoodsByCategory(category).length === 0">
+          No items available in this category.
+        </p>
+
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Place order section -->
+  <div class="menu-footer">
+    <h3>Found your favourite?</h3>
+    <p>Select your food and get your digital canteen token.</p>
+
+    <a routerLink="/place-order" class="order-button">
+      Place Order
+    </a>
+  </div>
+
+</section>
