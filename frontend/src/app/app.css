@@ -1,4 +1,8 @@
 
+/* =========================
+   GLOBAL STYLES
+========================= */
+
 * {
   box-sizing: border-box;
 }
@@ -10,45 +14,90 @@ body {
   color: #222;
 }
 
+/* =========================
+   HEADER
+========================= */
+
 header {
   background: #176b45;
   color: white;
   text-align: center;
-  padding: 28px 15px;
+  padding: 14px 15px 12px;
 }
 
 header h1 {
-  margin: 0 0 10px;
+  margin: 0 0 6px;
   font-size: 34px;
 }
+
+/* =========================
+   CANTEEN LOGO
+========================= */
+
+.header-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+
+.header-logo img {
+  width: 125px;
+  height: 125px;
+  object-fit: contain;
+  display: block;
+}
+
+/* =========================
+   TAGLINE BELOW LOGO
+========================= */
 
 header p {
   margin: 0;
   font-size: 16px;
+  line-height: 1.4;
 }
+
+/* =========================
+   NAVIGATION
+========================= */
 
 nav {
   background: #104d32;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 36px;
   padding: 16px;
-  text-align: center;
 }
 
 nav a {
   color: white;
   text-decoration: none;
-  margin: 0 18px;
   font-weight: bold;
+  font-size: 16px;
+  transition: color 0.2s ease;
 }
 
 nav a:hover {
   color: #b7f7cd;
 }
 
+/* =========================
+   MAIN CONTENT
+========================= */
+
 main {
   max-width: 1100px;
+  min-height: 60vh;
   margin: 30px auto;
   padding: 0 20px;
 }
+
+/* =========================
+   SECTIONS
+========================= */
 
 section {
   background: white;
@@ -68,6 +117,10 @@ h2 {
   color: #555;
   margin-bottom: 25px;
 }
+
+/* =========================
+   FOOD LIST
+========================= */
 
 .food-list {
   display: grid;
@@ -93,6 +146,10 @@ h2 {
   font-weight: bold;
 }
 
+/* =========================
+   BUTTONS
+========================= */
+
 button {
   background: #176b45;
   color: white;
@@ -102,11 +159,16 @@ button {
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
+  transition: background 0.2s ease;
 }
 
 button:hover {
   background: #104d32;
 }
+
+/* =========================
+   FOOTER
+========================= */
 
 footer {
   background: #104d32;
@@ -115,17 +177,64 @@ footer {
   padding: 18px;
 }
 
+footer p {
+  margin: 0;
+}
+
+/* =========================
+   RESPONSIVE DESIGN
+========================= */
+
 @media (max-width: 600px) {
+  header {
+    padding: 14px 12px 10px;
+  }
+
   header h1 {
     font-size: 26px;
   }
 
+  .header-logo img {
+    width: 100px;
+    height: 100px;
+  }
+
+  header p {
+    font-size: 14px;
+  }
+
+  nav {
+    gap: 12px 22px;
+    padding: 14px 10px;
+  }
+
   nav a {
-    display: inline-block;
-    margin: 8px;
+    font-size: 14px;
+  }
+
+  main {
+    margin: 20px auto;
+    padding: 0 12px;
   }
 
   section {
     padding: 20px;
+  }
+
+  h2 {
+    font-size: 24px;
+  }
+
+  .food-list {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+  }
+
+  .food-card {
+    padding: 16px;
+  }
+
+  button {
+    max-width: 100%;
   }
 }

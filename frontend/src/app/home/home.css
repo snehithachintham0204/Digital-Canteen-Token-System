@@ -228,3 +228,19 @@
     font-size: 25px;
   }
 }
+
+/* Classic Canteen Logo */
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.canteen-logo {
+  width: 130px;
+  height: 130px;
+  object-fit: contain;
+  display: block;
+  border-radius: 50%;
+}
